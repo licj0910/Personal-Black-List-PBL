@@ -21,20 +21,20 @@ local defaults = {
     },
     profile= {
         classes={
-            "UNSPECIFIED",
-            "DEATHKNIGHT",
-            "DEMONHUNTER",
-            "DRUID",
-            "HUNTER",
-            "MAGE",
-            "MONK",
-            "PALADIN",
-            "PRIEST",
-            "ROGUE",
-            "SHAMAN",
-            "WARLOCK",
-            "WARRIOR",
-            "EVOKER",
+            L["UNSPECIFIED"],
+            L["DEATHKNIGHT"],
+            L["DEMONHUNTER"],
+            L["DRUID"],
+            L["HUNTER"],
+            L["MAGE"],
+            L["MONK"],
+            L["PALADIN"],
+            L["PRIEST"],
+            L["ROGUE"],
+            L["SHAMAN"],
+            L["WARLOCK"],
+            L["WARRIOR"],
+            L["EVOKER"],
         },
         categories={
             L["dropDownAll"],
@@ -161,9 +161,9 @@ end
 function PBL:CommandChatFilter()
     self.db.profile.chatfilter.disabled = not self.db.profile.chatfilter.disabled
     if self.db.profile.chatfilter.disabled then
-        PBL:Print("Chat filter disabled")
+        PBL:Print(L["Chat filter disabled"])
     else
-        PBL:Print("Chat filter enabled")
+        PBL:Print(L["Chat filter enabled"])
     end
 end
 
@@ -171,9 +171,9 @@ end
 function PBL:CommandAlerts()
     self.db.profile.ShowAlert["LeaveAlert"] = not self.db.profile.ShowAlert["LeaveAlert"]
     if self.db.profile.ShowAlert["LeaveAlert"] then
-        PBL:Print("Alerts disabled")
+        PBL:Print(L["Alerts disabled"])
     else
-        PBL:Print("Alerts enabled")
+        PBL:Print(L["Alerts enabled"])
     end
 end
 
@@ -262,7 +262,7 @@ end
 
 function PBL:rmvfromlist(fullname, idx)
     table.remove(PBL.db.global.blackList, idx)
-    PBL:Print("|cff008000"..fullname.." Removed from blacklist")
+    PBL:Print("|cff008000"..fullname..L[" Removed from blacklist"])
 end
 
 -- --------------------------------------------------------------------------
@@ -283,10 +283,10 @@ function PBL:addtolist(name,realm,classFile,category,reason,note)
       -- PBL:rmvfromlist(fullname, idx)
       -- table.insert(PBL.db.global.blackList, unitobjtoban)
       PBL.db.global.blackList[idx] = unitobjtoban
-      PBL:Print("|cffff0000"..fullname.."'s entry has been successfully edited!")
+      PBL:Print("|cffff0000"..fullname..L["'s entry has been successfully edited!"])
     else
       table.insert(PBL.db.global.blackList, unitobjtoban)
-      PBL:Print("|cffff0000"..fullname.." succesfully added to blacklist!")
+      PBL:Print("|cffff0000"..fullname..L[" succesfully added to blacklist!"])
     end
 end
 
@@ -372,6 +372,38 @@ end
 
 local TestDropdownMenuList = {"PLAYER","RAID_PLAYER","PARTY","FRIEND",}
 
+for _, menuName in pairs(TestDropdownMenuList) do
+	Menu.ModifyMenu("MENU_UNIT_"..menuName, function(ownerRegion, rootDescription, contextData)
+		local name, server = contextData.name, contextData.server or GetRealmName()
+
+
+
+
+
+
+		local selfname = UnitName("player")
+		local selfrealm = GetRealmName()
+		if contextData.which == "FRIEND" and name.."-"..server == selfname.."-"..selfrealm then
+			return
+		end
+		rootDescription:CreateButton("Add/Remove to PBL", function()
+			local fullname = name.."-"..server
+			local classFile = UnitClassBase(contextData.unit or fullname) or "UNSPECIFIED"
+			local note = "Added from unitframe."
+			local exist, i = isbanned(PBL.db.global.blackList, fullname)
+            if exist then
+                PBL:rmvfromlist(fullname, i)
+            else
+                PBL:addtolist(name,server,L[classFile],1,1,note)
+            end
+            PBL:refreshWidgetCore()
+		end)
+
+
+	end)
+end
+
+--[[
 function Assignfunchook(dropdownMenu, which, unit, name, userData, ...)
     if UIDROPDOWNMENU_MENU_LEVEL > 1 then
         return
@@ -384,17 +416,16 @@ function Assignfunchook(dropdownMenu, which, unit, name, userData, ...)
     if which == "FRIEND" and name == selfname.."-"..realm then
         return
     end
-    local info = UIDropDownMenu_CreateInfo()
-    info.text = "Add/Remove to PBL"
-    info.owner = which
-    info.notCheckable = 1
-    info.func = blackListButton
-    info.colorCode = "|cffff0000"
-    info.value = "AddToPBL"
-    UIDropDownMenu_AddButton(info)
+    MenuUtil.CreateContextMenu(dropdownMenu, function(ownerRegion, rootDescription)
+        local info = MenuUtil.CreateButtonInfo("Add/Remove to PBL", function()
+            blackListButton({value = "AddToPBL"})
+        end)
+        info.colorCode = "|cffff0000"
+        rootDescription:AddButton(info)
+    end)
 end
-
-hooksecurefunc("UnitPopup_ShowMenu", Assignfunchook)
+]]--
+--hooksecurefunc("UnitPopup_ShowMenu", Assignfunchook)
 
 -- --------------------------------------------------------------------------
 -- DEPRECATED: Unit Tooltips
@@ -442,7 +473,7 @@ local function OnTooltipSetUnit(tooltip, data)
             realm=GetRealmName()
             realm=realm:gsub(" ","");
         end
-        fullname = name .. "-" .. realm;
+        local fullname = name .. "-" .. realm;
 
         local banned, idx = isbanned(PBL.db.global.blackList,fullname)
         local p = PBL.db.global.blackList[idx]
@@ -530,11 +561,12 @@ TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, OnTooltipSetU
 function PBL:gru_eventhandler()
     local aux = false
     local latestGroupMembers = GetNumGroupMembers()
-    if self.db.profile.ShowAlert["count"] == latestGroupMembers then
+    if self.db.profile.ShowAlert["count"] < latestGroupMembers then
         return
     elseif self.db.profile.ShowAlert["count"] > latestGroupMembers then
         self.db.profile.ShowAlert["count"] = latestGroupMembers
-        local name,realm="";
+        local name = "";
+        local realm = "";
         self.db.profile.ShowAlert["onparty"] = {}
         for l=1, latestGroupMembers do
             if latestGroupMembers < 6 then
@@ -561,7 +593,8 @@ function PBL:gru_eventhandler()
     end
 
     local pjs = {};
-    local name,realm="";
+    local name = "";
+    local realm = "";
     local i
     for i=1, latestGroupMembers do
         if latestGroupMembers < 6 then
@@ -577,11 +610,11 @@ function PBL:gru_eventhandler()
                 local exist2, j = has_value(PBL.db.profile.ShowAlert["onparty"], fullname)
                 if exist == true then
                     if exist2 == false then
-                        PBL:Print("|cffff0000".."Here is",fullname,"who is in your BlackList")
+                        PBL:Print("|cffff0000"..L["Here is"],fullname,L["who is in your BlackList"])
                         table.insert(self.db.profile.ShowAlert["onparty"], fullname)
                         aux = true
                     end
-                    pjs[table.getn(pjs) + 1] = fullname
+                    pjs[#pjs + 1] = fullname
                     self.db.profile.ShowAlert["count"] = latestGroupMembers
                 end
             end
@@ -589,12 +622,12 @@ function PBL:gru_eventhandler()
     end
 
     if self.db.profile.ShowAlert["LeaveAlert"] == false and aux == true then
-        if table.getn(pjs) ~= 0 then
-            local text = "", j
-            for j=1, table.getn(pjs) do
+        if #pjs ~= 0 then
+            local text = "";
+            for j=1, #pjs do
                 text = text..pjs[j].."\n"
             end
-            if table.getn(pjs) > 1 then
+            if #pjs > 1 then
                 text = text..L["confirmMultipleTxt"]
             else
                 text = text..L["confirmSingleTxt"]
