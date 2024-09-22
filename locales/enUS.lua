@@ -2,6 +2,23 @@
 local L = LibStub("AceLocale-3.0"):NewLocale("PBL", "enUS", true)
 
 L = L or {}
+
+--Core
+L["UNSPECIFIED"] = "UNSPECIFIED"
+L["DEATHKNIGHT"] = "DEATHKNIGHT"
+L["DEMONHUNTER"] = "DEMONHUNTER"
+L["DRUID"] = "DRUID"
+L["HUNTER"] = "HUNTER"
+L["MAGE"] = "MAGE"
+L["MONK"] = "MONK"
+L["PALADIN"] = "PALADIN"
+L["PRIEST"] = "PRIEST"
+L["ROGUE"] = "ROGUE"
+L["SHAMAN"] = "SHAMAN"
+L["WARLOCK"] = "WARLOCK"
+L["WARRIOR"] = "WARRIOR"
+L["EVOKER"] = "EVOKER"
+
 L["addBtn"] = "Add"
 L["catReaTxt"] = "Category/Reason"
 L["charNameRealmTxt"] = "Character Name-Realm"
@@ -42,5 +59,38 @@ L["removeBtn"] = "Remove"
 L["textFormatTxt"] = "text format: name-realm"
 L["classTxt"] = "Class"
 
+L["'s entry has been successfully edited!"] = "'s entry has been successfully edited!"
+L[" succesfully added to blacklist!"] = " succesfully added to blacklist!"
+L["Here is"] = "Here is"
+L["who is in your BlackList"] = "who is in your BlackList"
+L["Chat filter disabled"] = "Chat filter disabled"
+L["Chat filter enabled"] = "Chat filter enabled"
+L["Alerts disabled"] = "Alerts disabled"
+L["Alerts enabled"] = "Alerts enabled"
+L[" Removed from blacklist"] = " Removed from blacklist"
 
 
+--Frame
+L["Ban List"] = "Ban List"
+L["Add/Edit"] = "Add/Edit"
+L["Credits"] = "Credits"
+L["BAN LIST"] = "BAN LIST"
+L["NAME"] = "NAME"
+L["CLASS"] = "CLASS"
+L["CAT"] =  "CAT"
+L["ISSUE"] = "ISSUE"
+L["NOTE"]  = "NOTE"
+L["Add New Player"] = "Add New Player"
+L["Player Info"] = "Player Info"
+L["Ban Reason"] = "Ban Reason"
+L["NAME (Name-Realm)"] = "NAME (Name-Realm)"
+L["ADD"] = "ADD"
+L["CATEGORY"] = "CATEGORY"
+L["REASON"] = "REASON"
+L["CLASS"] = "CLASS"
+L["CREDITS"] = "CREDITS"
+L["Developers"] = "Developers"
+L["Translators"] = "Translators"
+L["Special Thanks"] = "Special Thanks"
+
+L["Incorrect name format (name-realm)"] = "Incorrect name format (name-realm)"
