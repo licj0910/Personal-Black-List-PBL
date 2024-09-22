@@ -1,7 +1,20 @@
-## Interface: 100002
+## Interface: 110002
 ## Version: 3.7.7
 ## Title: Personal Blacklist
 ## Notes: Tired of dealing with undesirable players in groups? Blacklist them and forget about them!
+## Notes-zhCN: 厌倦了在队伍中与不良玩家打交道？将他们列入黑名单，然后忘掉他们！
+## Notes-zhTW: 厭倦了在隊伍中與不喜歡的玩家打交道？將他們列入黑名單，然後忘掉他們！
+## Notes-deDE: Mütter die unangenehmen Spieler in Gruppen? Schreibe sie ein und denk an sie nicht mehr!
+## Notes-frFR: Fatigué des joueurs indésirables dans les groupes ? Leur envoyer sur liste noir et ne les revois plus !
+## Notes-ruRU: Занемогаете ли вы игроков， которых не присраиваете？ Добавьте их в черный список и удалите от себя！
+## Notes-koKR: 싫어하는 플레이어를 그룹에서 일으켜 싶나요？ 블랙리스트에 추가하고 그들을 잊으세요！
+## Notes-esMX: ¿Abordas los jugadores desagradables en los grupos? Añadalos a la lista negra y olvidalos!
+## Notes-ptBR: Cansado dos jogadores desagradáveis em grupos? Adicione-os à lista negra e ignore-os!
+## Notes-itIT: Difficile da gestire i player indesiderati nei gruppi? Aggiungili alla lista nera e non li pense più！
+## Notes-esES: ¿Abrigadas por los jugadores desagradables en los grupos? Añadalos a la lista negra y ignorelos!
+
+## IconTexture: Interface\AddOns\PersonalBlacklist\media\___newIcon.blp
+
 
 ## Author: Alex Ovares (Xylons), Henry Talavera (Heomel), Ayr (Proudmoore-US) 
 ## X-Email: xylonsUS@gmail.com
@@ -23,6 +36,7 @@ locales\enUS.lua
 locales\esMX.lua
 locales\esES.lua
 locales\deDE.lua
+locales\zhCN.lua
 
 # Addon Files
 Core.lua

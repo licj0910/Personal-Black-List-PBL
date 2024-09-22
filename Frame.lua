@@ -6,6 +6,7 @@ local drawWidget1 = ""
 local sortIndex = 0
 local sortDir = true
 local frameShown = false
+local L = LibStub("AceLocale-3.0"):GetLocale("PBL")
 
 -- --------------------
 -- Widgets
@@ -139,7 +140,7 @@ function PBL:createBtn(name,text,width)
 										note = notesInput:GetText()
                     local partname = {strsplit("-",fullname)}
                     if partname[1] == nil or partname[2] == nil then
-                        PBL:Print("Incorrect name format (name-realm)")
+                        PBL:Print(L["Incorrect name format (name-realm)"])
                     else
                         -- if not isbanned(PBL.db.global.blackList, fullname) then
                             PBL:addtolist(partname[1],partname[2],classFile,catvalue,reavalue,note)
@@ -253,29 +254,29 @@ function PBL:showFrame()
         scorelistWidget = scroll;
 
         -- createHeading receives (name,text)
-        local heading = self:createHeading("banList","BAN LIST")
+        local heading = self:createHeading("banList",L["BAN LIST"])
         scroll:AddChild(heading)
 
         -- createBtn receives (name,text,RelativeWidth)
-        local nameBtn = self:createBtn("nameBtn","NAME",0.30)
-        local classBtn = self:createBtn("classBtn","CLASS",0.12)
-        local catBtn = self:createBtn("catBtn","CAT",0.1)
-        local reaBtn = self:createBtn("reaBtn","ISSUE",0.1)
-				local noteBtn = self:createBtn("noteBtn","NOTE",0.3)
+        local nameBtn = self:createBtn("nameBtn",L["NAME"],0.30)
+        local classBtn = self:createBtn("classBtn",L["CLASS"],0.1)
+        local catBtn = self:createBtn("catBtn",L["CAT"],0.1)
+        local reaBtn = self:createBtn("reaBtn",L["ISSUE"],0.12)
+		local noteBtn = self:createBtn("noteBtn",L["NOTE"],0.30)
         local delBtn = self:createBtn("delBtn","",0.08)
 
         scroll:AddChild(nameBtn)
         scroll:AddChild(classBtn)
         scroll:AddChild(catBtn)
         scroll:AddChild(reaBtn)
-				scroll:AddChild(noteBtn)
+		scroll:AddChild(noteBtn)
         scroll:AddChild(delBtn)
 
         local namelist = {}
         local classlist = {}
         local catlist = {}
         local realist = {}
-				local notelist = {}
+		local notelist = {}
         local rmvBtns = {}
 
         local sortedKeys = self:getKeysSortedByValue(self.db.global.blackList,
@@ -359,30 +360,30 @@ function PBL:showFrame()
         scorelistWidget = scroll;
 
         -- createHeading receives (name,text)
-        local topHeading = self:createHeading("banControl","Add New Player")
+        local topHeading = self:createHeading("banControl",L["Add New Player"])
         scroll:AddChild(topHeading)
 
 				-- GROUPS
 				local playerGroup = AceGUI:Create("InlineGroup")
-				playerGroup:SetTitle("Player Info")
+				playerGroup:SetTitle(L["Player Info"])
 				playerGroup:SetFullWidth(true)
 				playerGroup:SetLayout("Flow")
 
 				local reasonGroup = AceGUI:Create("InlineGroup")
-				reasonGroup:SetTitle("Ban Reason")
+				reasonGroup:SetTitle(L["Ban Reason"])
 				reasonGroup:SetFullWidth(true)
 				reasonGroup:SetLayout("Flow")
 
         -- createHeader control (input & dropdowns)
-        charInput = self:createInput("NAME (Name-Realm)", 0.36)
+        charInput = self:createInput(L["NAME (Name-Realm)"], 0.36)
 
-        local addBtn = self:createBtn("addBtn","ADD",0.10);
+        local addBtn = self:createBtn("addBtn",L["ADD"],0.12);
         --local empS = self:createSimpleGrp(1)
 
         -- createDropdown receives (listOfOptions, label, width)
-        catDrp = self:createDropdown(self.db.profile.categories, "CATEGORY", "categories", 0.18);
-        reaDrp = self:createDropdown(self.db.profile.reasons, "REASON", "reasons", 0.18);
-        claDrp = self:createDropdown(self.db.profile.classes, "CLASS", "classes", 0.18);
+        catDrp = self:createDropdown(self.db.profile.categories, L["CATEGORY"], "categories", 0.18);
+        reaDrp = self:createDropdown(self.db.profile.reasons, L["REASON"], "reasons", 0.18);
+        claDrp = self:createDropdown(self.db.profile.classes, L["CLASS"], "classes", 0.18);
 
 				scroll:AddChild(playerGroup)
         playerGroup:AddChild(charInput);
@@ -394,7 +395,7 @@ function PBL:showFrame()
         reasonGroup:AddChild(reaDrp)
 
 				-- TODO: NOTES SECTION
-				notesInput = self:createInput("NOTE", 0.36)
+				notesInput = self:createInput(L["NOTE"], 0.36)
 				reasonGroup:AddChild(notesInput);
 
 				scroll:AddChild(addBtn);
@@ -403,7 +404,7 @@ function PBL:showFrame()
 		-- CREDITS
 		local DrawGroup3 = function (container)
         -- createHeading receives (name,text)
-        local heading = self:createHeading("creditsInf_","CREDITS")
+        local heading = self:createHeading("creditsInf_",L["CREDITS"])
         container:AddChild(heading)
 
         -- createLabel receives (name,text,RelativeWidth,colorR,colorG,colorB,x,y)
@@ -416,6 +417,7 @@ function PBL:showFrame()
 					["translators"] = {
 						{["name"] = "|cff3FC7EBKauto|r @ Quel'Thalas (US)", ["role"] = "Spanish"},
 						{["name"] = "SkylineHero @ Curseforge", ["role"] = "German"},
+                        {["name"] = "Shingty @ NGA", ["role"] = "Chinese"},
 					},
 					["other"] = {
 						{["name"] = "|cffA330C9Делюбовь|r @ Howling Fjord (RU)"},
@@ -448,7 +450,7 @@ function PBL:showFrame()
 				-- Developers
 
 				local devGroup = AceGUI:Create("InlineGroup")
-				devGroup:SetTitle("Developers")
+				devGroup:SetTitle(L["Developers"])
 				devGroup:SetFullWidth(true)
 				devGroup:SetLayout("Flow")
 				container:AddChild(devGroup)
@@ -461,7 +463,7 @@ function PBL:showFrame()
 				-- Translators
 
 				local locGroup = AceGUI:Create("InlineGroup")
-				locGroup:SetTitle("Translators")
+				locGroup:SetTitle(L["Translators"])
 				locGroup:SetFullWidth(true)
 				locGroup:SetLayout("Flow")
 				container:AddChild(locGroup)
@@ -474,7 +476,7 @@ function PBL:showFrame()
 				-- Special Thanks
 
 				local otherGroup = AceGUI:Create("InlineGroup")
-				otherGroup:SetTitle("Special Thanks")
+				otherGroup:SetTitle(L["Special Thanks"])
 				otherGroup:SetFullWidth(true)
 				otherGroup:SetLayout("Flow")
 				container:AddChild(otherGroup)
@@ -540,7 +542,7 @@ function PBL:showFrame()
 
 		tabContainer:SetLayout("Flow")
 
-		tabContainer:SetTabs({{value="tab1",text="Ban List"},{value="tab2",text="Add/Edit"},{value="tab3",text="Credits"}})
+		tabContainer:SetTabs({{value="tab1",text=L["Ban List"]},{value="tab2",text=L["Add/Edit"]},{value="tab3",text=L["Credits"]}})
 
 		tabContainer:SetCallback("OnGroupSelected", SelectGroup)
 		tabContainer:SelectTab("tab1")
@@ -560,22 +562,22 @@ end
 function PBL:setClassColor(class)
     -- 1-Warrior , 2-Paladin , 3-Hunter , 4-Rogue , 5-Priest , 6-Shaman, 7-Mage, 8-Warlock, 9-Monk, 10-Druid, 11-Demon Hunter, 12- Death Knight
     local classColor={
-        ["UNSPECIFIED"]={0.62,0.62,0.62},
-        ["WARRIOR"]={0.78,0.61,0.43},
-        ["PALADIN"]={0.96,0.55,0.73},
-        ["HUNTER"]={0.67,0.83,0.45},
-        ["ROGUE"]={1.00,0.96,0.41},
-        ["PRIEST"]={1,1,1},
-        ["SHAMAN"]={0.00,0.44,0.87},
-        ["MAGE"]={0.25,0.78,0.92},
-        ["WARLOCK"]={0.53,0.53,0.93},
-        ["MONK"]={0.00,1.00,0.59},
-        ["DRUID"]={1.00,0.49,0.04},
-        ["DEMONHUNTER"]={0.64,0.19,0.79},
-        ["DEATHKNIGHT"]={0.77,0.12,0.23},
-        ["EVOKER"]={0.20, 0.58, 0.50},
+        [L["UNSPECIFIED"]] = {0.62, 0.62, 0.62},
+        [L["DEATHKNIGHT"]] = {0.77, 0.12, 0.23},
+        [L["DEMONHUNTER"]] = {0.64, 0.19, 0.79},
+        [L["DRUID"]] = {1.00, 0.49, 0.04},
+        [L["HUNTER"]] = {0.67, 0.83, 0.45},
+        [L["MAGE"]] = {0.25, 0.78, 0.92},
+        [L["MONK"]] = {0.00, 1.00, 0.59},
+        [L["PALADIN"]] = {0.96, 0.55, 0.73},
+        [L["PRIEST"]] = {1, 1, 1},
+        [L["ROGUE"]] = {1.00, 0.96, 0.41},
+        [L["SHAMAN"]] = {0.00, 0.44, 0.87},
+        [L["WARLOCK"]] = {0.53, 0.53, 0.93},
+        [L["WARRIOR"]] = {0.78, 0.61, 0.43},
+        [L["EVOKER"]] = {0.20, 0.58, 0.50},
     }
-    return classColor[class]
+    return classColor[class] or {0.62, 0.62, 0.62} -- 默认颜色
 end
 
 function PBL:getKeysSortedByValue(tbl, sortFunction, value)
