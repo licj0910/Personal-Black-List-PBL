@@ -94,4 +94,4 @@ L["Developers"] = "Entwickler"
 L["Translators"] = "Übersetzer"
 L["Special Thanks"] = "Besonderer Dank"
 
-L["Incorrect name format (name-realm)"] = "Falsches Namensformat (name-realm)".
+L["Incorrect name format (name-realm)"] = "Falsches Namensformat (name-realm)"

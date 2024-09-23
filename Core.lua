@@ -314,7 +314,7 @@ end
 
 local function blackListButton(self)
     local button = self.value;
-    if ( button == "AddToPBL" ) then
+    if ( button == "Add/Remove to PBL" ) then
         local dropdownFrame = UIDROPDOWNMENU_INIT_MENU
         local unit = dropdownFrame.unit
         local name = dropdownFrame.name
@@ -323,15 +323,6 @@ local function blackListButton(self)
         local note = "Added from unitframe."
         if unit then
             className,classFile,classID = UnitClass(unit)
-        -- elseif self.owner == "FRIEND" then
-        --     if name == nil or name == "" or server == nil or server == "" then
-        --         PBL:Print("cant read name or realm")
-        --         return
-        --     else
-        --         --HOW TO RETRIEVE CLASS ON CHAT???????
-        --         PBL:addtolist(name,server,"UNSPECIFIED",0,0)
-        --         return
-        --     end
         end
         if server==nil then
             local realm = GetRealmName()
@@ -353,50 +344,8 @@ local function blackListButton(self)
     end
 end
 
---local PopUpMenu = CreateFrame("Frame","PopUpMenuFrame")
---PopUpMenu:SetScript("OnEvent", function() hooksecurefunc("UnitPopup_OnClick", blackListButton) end)
---PopUpMenu:RegisterEvent("PLAYER_LOGIN")
---local PopupUnits = {}
---UnitPopupButtons["AddToPBL"] = { text = "Add/Remove to PBL", }
---local i, j, UPMenus
---for i,UPMenus in pairs(UnitPopupMenus) do
---    for j=1, #UPMenus do
---        if UPMenus[j] == "INSPECT" then
---            PopupUnits[#PopupUnits + 1] = i
---            pos = j + 1
---            table.insert( UnitPopupMenus[i] ,pos , "AddToPBL" )
---            break
---        end
---    end
---end
 
 local TestDropdownMenuList = {"PLAYER","RAID_PLAYER","PARTY","FRIEND",}
-
---[[
-function Assignfunchook(dropdownMenu, which, unit, name, userData, ...)
-    if UIDROPDOWNMENU_MENU_LEVEL > 1 then
-        return
-    end
-    if not has_value(TestDropdownMenuList,which) then
-        return
-    end
-    local selfname = UnitName("player")
-    local realm = GetRealmName()
-    if which == "FRIEND" and name == selfname.."-"..realm then
-        return
-    end
-    local info = UIDropDownMenu_CreateInfo()
-    info.text = "Add/Remove to PBL"
-    info.owner = which
-    info.notCheckable = 1
-    info.func = blackListButton
-    info.colorCode = "|cffff0000"
-    info.value = "AddToPBL"
-    UIDropDownMenu_AddButton(info)
-end
-
-hooksecurefunc("UnitPopup_ShowMenu", Assignfunchook)
-]]--
 
 for _, menuName in pairs(TestDropdownMenuList) do
 	Menu.ModifyMenu("MENU_UNIT_"..menuName, function(ownerRegion, rootDescription, contextData)
@@ -559,8 +508,7 @@ function PBL:gru_eventhandler()
         return
     elseif self.db.profile.ShowAlert["count"] > latestGroupMembers then
         self.db.profile.ShowAlert["count"] = latestGroupMembers
-        local name = "";
-        local realm = "";
+        local name, realm = "", "";
         self.db.profile.ShowAlert["onparty"] = {}
         for l=1, latestGroupMembers do
             if latestGroupMembers < 6 then
@@ -587,8 +535,7 @@ function PBL:gru_eventhandler()
     end
 
     local pjs = {};
-    local name = "";
-    local realm = "";
+    local name, realm= "", "";
     local i
     for i=1, latestGroupMembers do
         if latestGroupMembers < 6 then
