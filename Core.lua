@@ -372,15 +372,35 @@ end
 
 local TestDropdownMenuList = {"PLAYER","RAID_PLAYER","PARTY","FRIEND",}
 
+--[[
+function Assignfunchook(dropdownMenu, which, unit, name, userData, ...)
+    if UIDROPDOWNMENU_MENU_LEVEL > 1 then
+        return
+    end
+    if not has_value(TestDropdownMenuList,which) then
+        return
+    end
+    local selfname = UnitName("player")
+    local realm = GetRealmName()
+    if which == "FRIEND" and name == selfname.."-"..realm then
+        return
+    end
+    local info = UIDropDownMenu_CreateInfo()
+    info.text = "Add/Remove to PBL"
+    info.owner = which
+    info.notCheckable = 1
+    info.func = blackListButton
+    info.colorCode = "|cffff0000"
+    info.value = "AddToPBL"
+    UIDropDownMenu_AddButton(info)
+end
+
+hooksecurefunc("UnitPopup_ShowMenu", Assignfunchook)
+]]--
+
 for _, menuName in pairs(TestDropdownMenuList) do
 	Menu.ModifyMenu("MENU_UNIT_"..menuName, function(ownerRegion, rootDescription, contextData)
 		local name, server = contextData.name, contextData.server or GetRealmName()
-
-
-
-
-
-
 		local selfname = UnitName("player")
 		local selfrealm = GetRealmName()
 		if contextData.which == "FRIEND" and name.."-"..server == selfname.."-"..selfrealm then
@@ -398,34 +418,8 @@ for _, menuName in pairs(TestDropdownMenuList) do
             end
             PBL:refreshWidgetCore()
 		end)
-
-
 	end)
 end
-
---[[
-function Assignfunchook(dropdownMenu, which, unit, name, userData, ...)
-    if UIDROPDOWNMENU_MENU_LEVEL > 1 then
-        return
-    end
-    if not has_value(TestDropdownMenuList,which) then
-        return
-    end
-    local selfname = UnitName("player")
-    local realm = GetRealmName()
-    if which == "FRIEND" and name == selfname.."-"..realm then
-        return
-    end
-    MenuUtil.CreateContextMenu(dropdownMenu, function(ownerRegion, rootDescription)
-        local info = MenuUtil.CreateButtonInfo("Add/Remove to PBL", function()
-            blackListButton({value = "AddToPBL"})
-        end)
-        info.colorCode = "|cffff0000"
-        rootDescription:AddButton(info)
-    end)
-end
-]]--
---hooksecurefunc("UnitPopup_ShowMenu", Assignfunchook)
 
 -- --------------------------------------------------------------------------
 -- DEPRECATED: Unit Tooltips
