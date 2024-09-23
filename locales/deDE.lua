@@ -2,6 +2,23 @@
 local L = LibStub("AceLocale-3.0"):NewLocale("PBL", "deDE")
 
 L = L or {}
+
+--Core --need review
+L["UNSPECIFIED"] = "UNSPECIFIED"
+L["DEATHKNIGHT"] = "DEATHKNIGHT"
+L["DEMONHUNTER"] = "DEMONHUNTER"
+L["DRUID"] = "DRUID"
+L["HUNTER"] = "HUNTER"
+L["MAGE"] = "MAGE"
+L["MONK"] = "MONK"
+L["PALADIN"] = "PALADIN"
+L["PRIEST"] = "PRIEST"
+L["ROGUE"] = "ROGUE"
+L["SHAMAN"] = "SHAMAN"
+L["WARLOCK"] = "WARLOCK"
+L["WARRIOR"] = "WARRIOR"
+L["EVOKER"] = "EVOKER"
+
 L["addBtn"] = "Hinzufügen"
 L["catReaTxt"] = "Kategorie/Grund"
 L["charNameRealmTxt"] = "Charakter Name-Realm"
@@ -41,3 +58,40 @@ L["pblListTab"] = "PBL - Liste"
 L["removeBtn"] = "Entfernen"
 L["textFormatTxt"] = "text format: name-realm"
 L["classTxt"] = "Klasse"
+
+--need review
+L["'s entry has been successfully edited!"] = "'s Eintrag wurde erfolgreich bearbeitet!"
+L[" succesfully added to blacklist!"] = " erfolgreich zur Blacklist hinzugefügt!"
+L["Here is"] = "Hier ist"
+L["who is in your BlackList"] = "Wer ist in deiner Blacklist?"
+L["Chat filter disabled"] = "Chat-Filter deaktiviert"
+L["Chat filter enabled"] = "Chat-Filter aktiviert"
+L["Alerts disabled"] = "Benachrichtigungen deaktiviert"
+L["Alerts enabled"] = "Benachrichtigungen aktiviert"
+L[" Removed from blacklist"] = " Aus der Blacklist entfernt"
+
+
+--Frame --need review
+L["Ban List"] = "Sperrliste"
+L["Add/Edit"] = "Hinzufügen/Bearbeiten"
+L["Credits"] = "Danksagungen"
+L["BAN LIST"] = "SPERRLISTE"
+L["NAME"] = "NAME"
+L["CLASS"] = "KLASSE"
+L["CAT"] = "KATEGORIE"
+L["ISSUE"] = "PROBLEM"
+L["NOTE"] = "NOTIZ"
+L["Add New Player"] = "Neuen Spieler hinzufügen"
+L["Player Info"] = "Spielerinformationen"
+L["Ban Reason"] = "Sperrgrund"
+L["NAME (Name-Realm)"] = "NAME (Name-Realm)"
+L["ADD"] = "HINZUFÜGEN"
+L["CATEGORY"] = "KATEGORIE"
+L["REASON"] = "GRUND"
+L["CLASS"] = "KLASSE"
+L["CREDITS"] = "DANKSAGUNGEN"
+L["Developers"] = "Entwickler"
+L["Translators"] = "Übersetzer"
+L["Special Thanks"] = "Besonderer Dank"
+
+L["Incorrect name format (name-realm)"] = "Falsches Namensformat (name-realm)".
