@@ -312,62 +312,31 @@ end
 --           Potential for taint here - consider another way?
 -- --------------------------------------------------------------------------
 
-local function blackListButton(self)
-    local button = self.value;
-    if ( button == "Add/Remove to PBL" ) then
-        local dropdownFrame = UIDROPDOWNMENU_INIT_MENU
-        local unit = dropdownFrame.unit
-        local name = dropdownFrame.name
-        local server = dropdownFrame.server
-        local className,classFile,classID
-        local note = "Added from unitframe."
-        if unit then
-            className,classFile,classID = UnitClass(unit)
-        end
-        if server==nil then
-            local realm = GetRealmName()
-            server=realm:gsub(" ","")
-        end
-        local fullname = name.."-"..server
-        if (fullname ~= nil and fullname ~= "") or (name ~= nil and name ~= "" and server ~= nil and server ~= "" and self.owner == "FRIEND") then
-            local exist, i = isbanned(PBL.db.global.blackList, fullname)
-            if not classFile then
-                classFile = "UNSPECIFIED"
-            end
-            if exist then
-                PBL:rmvfromlist(fullname, i)
-            else
-                PBL:addtolist(name,server,classFile,1,1,note)
-            end
-            PBL:refreshWidgetCore()
-        end
-    end
-end
-
-
-local TestDropdownMenuList = {"PLAYER","RAID_PLAYER","PARTY","FRIEND",}
+local TestDropdownMenuList = {"PLAYER","RAID_PLAYER","PARTY","FRIEND"}
 
 for _, menuName in pairs(TestDropdownMenuList) do
-	Menu.ModifyMenu("MENU_UNIT_"..menuName, function(ownerRegion, rootDescription, contextData)
-		local name, server = contextData.name, contextData.server or GetRealmName()
-		local selfname = UnitName("player")
-		local selfrealm = GetRealmName()
-		if contextData.which == "FRIEND" and name.."-"..server == selfname.."-"..selfrealm then
-			return
-		end
-		rootDescription:CreateButton("Add/Remove to PBL", function()
-			local fullname = name.."-"..server
-			local classFile = UnitClassBase(contextData.unit or fullname) or "UNSPECIFIED"
-			local note = "Added from unitframe."
-			local exist, i = isbanned(PBL.db.global.blackList, fullname)
+    Menu.ModifyMenu("MENU_UNIT_"..menuName, function(ownerRegion, rootDescription, contextData)
+        local name, server = contextData.name, contextData.server or GetRealmName()
+        local selfname = UnitName("player")
+        local selfrealm = GetRealmName()
+        local guid = UnitGUID(contextData.unit)
+        if contextData.which == "FRIEND" and name.."-"..server == selfname.."-"..selfrealm then
+            return
+        end
+        local fullname = name.."-"..server
+        local exist, i = isbanned(PBL.db.global.blackList, fullname)
+        local text = exist and "|cff008000Remove from PBL" or "|cffff0000Add to PBL"
+        rootDescription:CreateButton(text, function()
+            local classFile = UnitClassBase(contextData.unit or fullname) or "UNSPECIFIED"
+            local note = "Added from unitframe."
             if exist then
                 PBL:rmvfromlist(fullname, i)
             else
-                PBL:addtolist(name,server,L[classFile],1,1,note)
+                PBL:addtolist(name, server, L[classFile], 1, 1, guid..note)
             end
             PBL:refreshWidgetCore()
-		end)
-	end)
+        end)
+    end)
 end
 
 -- --------------------------------------------------------------------------
