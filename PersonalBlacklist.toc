@@ -1,5 +1,5 @@
 ## Interface: 110002
-## Version: 3.7.7
+## Version: 3.7.8
 ## Title: Personal Blacklist
 ## Notes: Tired of dealing with undesirable players in groups? Blacklist them and forget about them!
 ## Notes-zhCN: 厌倦了在队伍中与不良玩家打交道？将他们列入黑名单，然后忘掉他们！
@@ -16,7 +16,7 @@
 ## IconTexture: Interface\AddOns\PersonalBlacklist\media\___newIcon.blp
 
 
-## Author: Alex Ovares (Xylons), Henry Talavera (Heomel), Ayr (Proudmoore-US) 
+## Author: Alex Ovares (Xylons), Henry Talavera (Heomel), Ayr (Proudmoore-US), KeiraMetz@NGA, Shingty@NGA
 ## X-Email: xylonsUS@gmail.com
 ## X-Discord: discord.gg/pugCR2Tutr
 

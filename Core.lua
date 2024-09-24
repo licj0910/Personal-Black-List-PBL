@@ -319,7 +319,7 @@ for _, menuName in pairs(TestDropdownMenuList) do
         local name, server = contextData.name, contextData.server or GetRealmName()
         local selfname = UnitName("player")
         local selfrealm = GetRealmName()
-        local guid = UnitGUID(contextData.unit)
+        local guid = contextData.unit and UnitGUID(contextData.unit) or ""
         if contextData.which == "FRIEND" and name.."-"..server == selfname.."-"..selfrealm then
             return
         end
@@ -332,7 +332,7 @@ for _, menuName in pairs(TestDropdownMenuList) do
             if exist then
                 PBL:rmvfromlist(fullname, i)
             else
-                PBL:addtolist(name, server, L[classFile], 1, 1, guid..note)
+                PBL:addtolist(name, server, L[classFile], 1, 1, guid..","..note)
             end
             PBL:refreshWidgetCore()
         end)
