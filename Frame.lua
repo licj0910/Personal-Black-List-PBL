@@ -219,7 +219,7 @@ end
 
 local function safecall(func, ...)
 	if func then
-		return xpcall(func, errorhandler, ...)
+		return xpcall(func, geterrorhandler, ...)
 	end
 end
 

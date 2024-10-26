@@ -473,7 +473,7 @@ TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, OnTooltipSetU
 function PBL:gru_eventhandler()
     local aux = false
     local latestGroupMembers = GetNumGroupMembers()
-    if self.db.profile.ShowAlert["count"] < latestGroupMembers then
+    if self.db.profile.ShowAlert["count"] == latestGroupMembers then
         return
     elseif self.db.profile.ShowAlert["count"] > latestGroupMembers then
         self.db.profile.ShowAlert["count"] = latestGroupMembers
